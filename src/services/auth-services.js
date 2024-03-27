@@ -24,10 +24,14 @@ class AuthService{
             });
 
             sessionStorage.setItem('token', response.data.token)
-            const userDataJSON = JSON.stringify(response.data.data_user);
+            const userDataJSON = JSON.stringify(response.data.user.username);
+            console.log(response.data.user)
             sessionStorage.setItem('data-user', userDataJSON)
+            console.log(sessionStorage)
+            sessionStorage.setItem('role', response.data.user.role)
+            sessionStorage.setItem('company_name', response.data.user.company_name)
 
-            return this.getMenu(response.data.data_user.role);
+            return this.getMenu(response.data.user.role);
              
         } catch (error) {
             console.error("Error al iniciar sesión:", error);

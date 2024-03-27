@@ -24,6 +24,12 @@ const reducer = (state, action) => {
         company.id !== action.payload
         )
       };
+    case 'ADD_PAY_ROLL':
+      return{
+        ...state,
+        payRollList: [...state.payRollList, action.payload]
+      };
+
     default:
       return state;
   }

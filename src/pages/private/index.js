@@ -1,7 +1,8 @@
 // index.js
 
-export {  Employee } from '../../pages/private/Employee';
-export { Payroll } from '../../pages/private/Payroll';
+
+export {  Employee } from './Employee';
+export { PayRoll } from '../../pages/private/Payroll';
 export { Profile } from '../../pages/private/Profile';
 export { Store } from '../../pages/private/Store';
 export { Dashboard } from '../../pages/private/Dashboard';

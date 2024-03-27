@@ -12,9 +12,10 @@ export const AuthRoute = props => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!userInfo) {
-      // Si el usuario no está autenticado, simula la autenticación
-      simulateAuthentication(setUserInfo, navigate)
+    if (sessionStorage.length === 0) { 
+      window.location.replace('/login');      // Si el usuario no está autenticado, simula la autenticación
+    }else{
+
     }
   }, []);
 

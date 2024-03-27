@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import PayRollCompany from '@/components/PayRollCompany';
+import PayRollCompany from '../../../components/PayRollCompany';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 

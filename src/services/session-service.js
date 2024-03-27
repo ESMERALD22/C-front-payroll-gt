@@ -1,7 +1,5 @@
-
-class SessionService
- {
-  constructor() { }
+class SessionService {
+  constructor() {}
 
   set(clave, valor) {
     const valorString = JSON.stringify(valor);
@@ -11,17 +9,21 @@ class SessionService
 
   get(clave) {
     const valorString = sessionStorage.getItem(clave);
+    if (valorString === null || valorString === undefined) {
+      console.log('No se encontró ningún valor en sessionStorage bajo la clave "' + clave + '"');
+      return null;
+    }
     const valorJSON = JSON.parse(valorString);
-    console.log('Valor recuperado de sessionStorage bajo la clave "' + clave + '"---- ' + valorJSON);
+    console.log('Valor recuperado de sessionStorage bajo la clave "' + clave + '":', valorJSON);
     return valorJSON;
   }
 
   remove(clave) {
     sessionStorage.removeItem(clave);
-    console.log('Se ha eliminado el valor de sessionStorage bajo la clave "' + clave + '"' + sessionStorage);
+    console.log('Se ha eliminado el valor de sessionStorage bajo la clave "' + clave + '"');
     console.log('Nuevo estado de sessionStorage:', sessionStorage);
-
   }
+
   removeAll() {
     Object.keys(sessionStorage).forEach(key => {
       sessionStorage.removeItem(key);
@@ -30,6 +32,6 @@ class SessionService
     console.log('Se han eliminado todas las claves de sessionStorage');
     console.log('Nuevo estado de sessionStorage:', sessionStorage);
   }
-
 }
-export default Object.freeze(new SessionService())
+
+export default Object.freeze(new SessionService());
