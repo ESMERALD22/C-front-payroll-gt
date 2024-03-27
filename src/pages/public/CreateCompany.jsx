@@ -59,7 +59,7 @@ export const RegisterCompany = () => {
 
         console.log(data);
         try {
-            const formData = { ...data, picture: imageUrl };
+            const formData = { ...data, picture: "pintura" };
             console.log(formData);
             const response = await companyService.createCompany(
                 formData.name,

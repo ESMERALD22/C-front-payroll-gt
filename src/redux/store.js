@@ -3,28 +3,33 @@ import { createStore } from 'redux';
 import reducer from './reducers/index';
 import { apiService } from '@/services/api-service';
 
+async function fetchDataAndCreateStore() {
+  try {
+    const payRollListPromise = apiService.get({ url: '/payroll-periods/' });
+    const employeeListPromise = apiService.get({ url: '/employees/' });
+    const companiesListPromise = apiService.get({ url: '/company/' });
 
-const payRollList = await apiService.get({
-  url: '/payroll-periods/',
-});
-const employeeList = await apiService.get({
-  url: '/employees/',
-});
-const companiesList = await apiService.get({
-  url: '/company/',
-});
+    const [payRollList, employeeList, companiesList] = await Promise.all([
+      payRollListPromise,
+      employeeListPromise,
+      companiesListPromise
+    ]);
 
-console.log(companiesList.data.results)
+    const initialState = {
+      companiesList: companiesList.data.results,
+      employeeList: employeeList.data.results,
+      payRollList: payRollList.data.results,
+    };
 
-//estado inicial del store
-const initialState = {
-  companiesList: companiesList.data.results,
-  employeeList: employeeList.data.results,
-  payRollList: payRollList.data.results,
-};
+    console.log(initialState);
 
-console.log(initialState);
-//Creacion del store
-const store = createStore(reducer, initialState);
+    // Creación del store
+    const store = createStore(reducer, initialState);
+    return store;
+  } catch (error) {
+    console.error('Error fetching initial data:', error);
+    throw error;
+  }
+}
 
-export default store;
+export default fetchDataAndCreateStore;
