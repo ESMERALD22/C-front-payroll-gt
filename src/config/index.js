@@ -1,7 +1,7 @@
 const config = {
   local: {
     /// local environment
-        API_URL: 'http://localhost:8000/api/v1',
+        API_URL: 'https://c-backend-payroll-gt.onrender.com/api/v1',
   },
   test: {
     // test environment
@@ -9,7 +9,7 @@ const config = {
   },
   production: {
     // production environment
-    API_URL: 'https://c-backend-payroll-gt.onrender.com/', 
+    API_URL: 'https://c-backend-payroll-gt.onrender.com/api/v1', 
   },
 }
 

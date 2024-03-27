@@ -15,7 +15,7 @@ export const Home = () => {
         </div>
       </div>
       <div className="absolute top-0 right-0 m-4">
-        <Button variant="info"><Link to='/dashboard'>Login</Link></Button>
+        <Button variant="info"><Link to='/login'>Login</Link></Button>
       </div>
     </div>
   );
