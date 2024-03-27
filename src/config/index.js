@@ -9,7 +9,7 @@ const config = {
   },
   production: {
     // production environment
-    API_URL: '', 
+    API_URL: 'https://c-backend-payroll-gt.onrender.com/', 
   },
 }
 
