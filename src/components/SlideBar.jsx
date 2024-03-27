@@ -55,7 +55,7 @@ const Sidebar = ({ role, onPathChange }) => {
       {sessionStorage.getItem('role') && ( 
         <Button variant="danger" onClick={cerrarSesion} > Salir</Button>
       )}    
-    </Accordion>
+    </Accordion>  
   );
 };
 

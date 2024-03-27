@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import UploadFirebaseService from "../../services/firebase";
-import ToolService from "../../services/tool-service"
+import ToolService from "../../services/tool-service";
 
 function Uploader({ acceptedTypes, errorMessage, handleFileName, onUpload }) {
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     try {
       if (!file) {
         setError("Por favor selecciona un archivo.");
@@ -30,18 +29,15 @@ function Uploader({ acceptedTypes, errorMessage, handleFileName, onUpload }) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="file"
-          name=""
-          accept={acceptedTypes.toString()} 
-          onChange={(e) => {
-            setFile(e.target.files[0]);
-            setError("");
-          }}
-        />
-        <button>Subir</button>
-      </form>
+      <input
+        type="file"
+        name=""
+        accept={acceptedTypes.toString()} 
+        onChange={(e) => {
+          setFile(e.target.files[0]);
+          setError("");
+        }}
+      />
       {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );

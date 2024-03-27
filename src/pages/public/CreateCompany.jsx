@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { companyService } from '@/services/company-service';
 
 
 export const RegisterCompany = () => {
@@ -16,7 +17,12 @@ export const RegisterCompany = () => {
     const [isImageUploaded, setIsImageUploaded] = useState(false);
     const [errors, setErrors] = useState({});
     const { register, handleSubmit } = useForm();
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     useEffect(() => {
+        setSuccessMessage('');
+        setErrorMessage('');
+
         if (imageUrl !== '' && isImageUploaded) {
             handleSubmit();
         }
@@ -48,13 +54,27 @@ export const RegisterCompany = () => {
         }
     };
     const onSubmit = async (data) => {
+        setSuccessMessage('');
+        setErrorMessage('');
+
+        console.log(data);
         try {
             const formData = { ...data, picture: imageUrl };
-
             console.log(formData);
-
+            const response = await companyService.createCompany(
+                formData.name,
+                formData.phone,
+                formData.description,
+                formData.address,
+                formData.picture,
+                formData.email,
+                formData.password
+            );
+            console.log(response.data);
+            setSuccessMessage('La compañía se creó exitosamente.');
         } catch (error) {
             console.error('Error al enviar datos:', error);
+            setErrorMessage('Error al crear la compañía. Por favor, inténtalo de nuevo.');
         }
     };
 
@@ -63,13 +83,12 @@ export const RegisterCompany = () => {
 
             <div style={{ backgroundColor: 'black', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
                 <Button variant="info"><Link to="/">Regresar</Link></Button>
-
+                {successMessage && <span style={{ color: 'green' }}>{successMessage}</span>}
+                {errorMessage && <span style={{ color: 'red' }}>{errorMessage}</span>}
                 <h1 style={{ color: 'white' }}>REGISTRO</h1>
 
-                <form onSubmit={(e) => {
-                    e.preventDefault();
-                    handleValidation(e.target.elements);
-                }}>
+                <form onSubmit={handleSubmit(onSubmit)}>
+
                     <div style={{ marginBottom: '10px' }}>
                         <label style={{ color: 'white' }}>Nombre de la compañía :</label>
                     </div>
@@ -131,8 +150,8 @@ export const RegisterCompany = () => {
                     </div>
                     <div style={{ marginBottom: '10px' }}>
 
-                        <Button type="submit">Enviar</Button>
                     </div>
+                    <Button type="submit">Enviar</Button>
                 </form>
             </div>
         </>
